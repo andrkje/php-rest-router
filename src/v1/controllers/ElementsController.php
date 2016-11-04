@@ -13,7 +13,7 @@ class ElementsController implements EndPointControllerInterface
      */
     public function __construct($request_method, $path, $body, $auth, array $path_arguments = [])
     {
-        if (!Auth::isAuthenticatedForPath($auth)){
+        if (Auth::isAuthenticatedForPath($auth)){
             $this->message = "element controller";
         } else {
             $this->message = 'Auth error';
