@@ -15,13 +15,20 @@ class V1PathConfig
         //                              Add paths
         //
         //  To add paths:
+        //  $paths->addPath(new Path('/pathname/', 'Controller', [Allowed HTTP request types'], auth_required));
         // *******************************************************************
-        $p = new Path('aaa', 'controller');
+        $api_version = '/v1';
 
-        $paths->addPath(new Path('/v1/lists/', 'ListController', ['GET'], 1));
-        $paths->addPath(new Path('/v1/lists/{n}/', 'ListController', ['GET','POST', 'PUT', 'DELETE']));
-        $paths->addPath(new Path('/v1/lists/{n}/elements', 'ElementsController', ['GET','POST', 'PUT', 'DELETE'], 1));
+        // Lists
+        $paths->addPath(new Path($api_version . '/lists/', 'ListController', ['GET'], AUTH_LEVELS['NONE']));
+        $paths->addPath(new Path($api_version . '/lists/{n}/', 'ListController', ['GET','POST', 'PUT', 'DELETE']));
+        $paths->addPath(new Path($api_version . '/lists/{n}/elements', 'ElementsController', ['GET','POST', 'PUT', 'DELETE'], AUTH_LEVELS['NONE']));
 
+        // Admin
+        $paths->addPath(new Path($api_version . '/admin', 'AdminController', ['GET'], AUTH_LEVELS['ADMIN']));
+
+
+        
         return $paths;
     }
 
